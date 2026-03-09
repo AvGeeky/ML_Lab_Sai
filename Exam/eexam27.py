@@ -296,17 +296,20 @@ print(f"Prediction Time: {pred_time:.4f} seconds")
 
 if task == "classification":
 
-    print("\n=== Classification Metrics ===")
+    # print("\n=== Classification Metrics ===")
+    #
+    # acc = accuracy_score(y_test, y_pred)
+    # prec = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    # rec = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    # f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+    #
+    #
+    # print(f"Accuracy:  {acc:.4f}")
+    # print(f"Precision: {prec:.4f}")
+    # print(f"Recall:    {rec:.4f}")
+    # print(f"F1 Score:  {f1:.4f}")
 
-    acc = accuracy_score(y_test, y_pred)
-    prec = precision_score(y_test, y_pred, average='weighted', zero_division=0)
-    rec = recall_score(y_test, y_pred, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, y_pred, average='weighted', zero_division=0)
-
-    print(f"Accuracy:  {acc:.4f}")
-    print(f"Precision: {prec:.4f}")
-    print(f"Recall:    {rec:.4f}")
-    print(f"F1 Score:  {f1:.4f}")
+    print(classification_report(y_test, y_pred))
 
     # 8A. Confusion Matrix
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred, cmap='Blues')
