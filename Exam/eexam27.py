@@ -40,7 +40,7 @@ import time
 import matplotlib.pyplot as plt
 import seaborn as sns
 # SKLEARN CORE
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV, KFold, cross_validate
 from sklearn.pipeline import *
 from sklearn.compose import *
 from sklearn.impute import *
@@ -289,6 +289,20 @@ pred_time = time.time() - start
 print("Best Parameters:", grid.best_params_)
 print(f"Training Time: {train_time:.4f} seconds")
 print(f"Prediction Time: {pred_time:.4f} seconds")
+
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
+scores = cross_validate(
+    pipe,
+    X,
+    y,
+    cv=kf,
+    scoring=["r2","neg_mean_squared_error","neg_mean_absolute_error"]
+)
+
+print("R2:", scores["test_r2"].mean())
+print("MSE:", -scores["test_neg_mean_squared_error"].mean())
+print("MAE:", -scores["test_neg_mean_absolute_error"].mean())
 
 # =====================================================
 # 8. CLASSIFICATION METRICS & PLOTS
